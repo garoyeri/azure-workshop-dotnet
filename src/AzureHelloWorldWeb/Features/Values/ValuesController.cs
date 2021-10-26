@@ -13,12 +13,12 @@
         {
             _values = values;
         }
-        
+
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            return Ok((await _values.List()));
+            return Ok(await _values.List());
         }
 
         // GET api/values/5
@@ -34,7 +34,7 @@
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]string value)
+        public async Task<ActionResult> Post([FromBody] string value)
         {
             await _values.Append(value);
 
@@ -43,7 +43,7 @@
 
         // PUT api/values/5
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, [FromBody]string value)
+        public async Task<ActionResult> Put(int id, [FromBody] string value)
         {
             await _values.Upsert(id, value);
 

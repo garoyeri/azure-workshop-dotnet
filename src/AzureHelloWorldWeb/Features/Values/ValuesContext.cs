@@ -8,19 +8,16 @@ namespace AzureHelloWorldWeb.Features.Values
     public class ValuesContext : DbContext
     {
         private IDbContextTransaction _currentTransaction;
-        
+
         public ValuesContext(DbContextOptions<ValuesContext> options) : base(options)
         {
         }
-        
+
         public DbSet<DatabaseValueItem> Values { get; set; }
-        
+
         public async Task BeginTransactionAsync()
         {
-            if (_currentTransaction != null)
-            {
-                return;
-            }
+            if (_currentTransaction != null) return;
 
             _currentTransaction =
                 await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted).ConfigureAwait(false);

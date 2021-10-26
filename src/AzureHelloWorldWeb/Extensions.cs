@@ -33,7 +33,7 @@ namespace AzureHelloWorldWeb
 
             return services;
         }
-        
+
         public static void ConfigureSecrets(HostBuilderContext hostingContext, IConfigurationBuilder config)
         {
             // // if there is a secrets ARN configured AND we're not in development mode,

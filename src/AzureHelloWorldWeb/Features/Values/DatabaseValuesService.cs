@@ -14,14 +14,15 @@ namespace AzureHelloWorldWeb.Features.Values
         {
             _context = context;
         }
-        
+
         public async Task<string> Get(int id, CancellationToken cancellationToken = default)
         {
             var item = await _context.Values.FindAsync(id);
             return item?.Value;
         }
 
-        public Task<List<string>> List(int maxItems = 100, bool? useBackwardQuery = null, CancellationToken cancellationToken = default)
+        public Task<List<string>> List(int maxItems = 100, bool? useBackwardQuery = null,
+            CancellationToken cancellationToken = default)
         {
             return _context.Values
                 .OrderBy(v => v.Id)
@@ -38,22 +39,15 @@ namespace AzureHelloWorldWeb.Features.Values
         {
             var found = await _context.Values.FindAsync(id);
             if (found == null)
-            {
                 await _context.Values.AddAsync(new DatabaseValueItem { Id = id, Value = value }, cancellationToken);
-            }
             else
-            {
                 found.Value = value;
-            }
         }
 
         public async Task Delete(int id, CancellationToken cancellationToken = default)
         {
             var found = await _context.Values.FindAsync(id);
-            if (found != null)
-            {
-                _context.Values.Remove(found);
-            }
+            if (found != null) _context.Values.Remove(found);
         }
     }
 }

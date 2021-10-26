@@ -9,10 +9,10 @@ namespace AzureHelloWorldWeb
         public string Host { get; set; }
         public int? Port { get; set; }
     }
-    
+
     public enum PersistenceMode
     {
         DynamoDb = 1,
-        Database = 2,
+        Database = 2
     }
 }

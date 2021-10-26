@@ -20,13 +20,9 @@ namespace AzureHelloWorldWeb
 
                 var actionExecuted = await next();
                 if (actionExecuted.Exception != null && !actionExecuted.ExceptionHandled)
-                {
                     dbContext.RollbackTransaction();
-                }
                 else
-                {
                     await dbContext.CommitTransactionAsync();
-                }
             }
             catch
             {
@@ -34,4 +30,5 @@ namespace AzureHelloWorldWeb
                 throw;
             }
         }
-    }}
+    }
+}

@@ -18,7 +18,7 @@ namespace AzureHelloWorldWeb.Tests
             Factory = new TestApplicationFactory();
             Configuration = Factory.Services.GetRequiredService<IConfiguration>();
             ScopeFactory = Factory.Services.GetRequiredService<IServiceScopeFactory>();
-            
+
             Mode = Configuration.GetValue<PersistenceMode>("Database:PersistenceMode");
             if (Mode == PersistenceMode.Database)
             {
@@ -28,17 +28,21 @@ namespace AzureHelloWorldWeb.Tests
                 context.Database.Migrate();
             }
         }
-        
+
         public class TestApplicationFactory : WebApplicationFactory<Startup>
         {
-            protected override IHostBuilder CreateHostBuilder() =>
-                base.CreateHostBuilder()
+            protected override IHostBuilder CreateHostBuilder()
+            {
+                return base.CreateHostBuilder()
                     .ConfigureHostConfiguration(
                         config => config.AddEnvironmentVariables("ASPNETCORE"));
-            
-            protected override IWebHostBuilder CreateWebHostBuilder() =>
-                base.CreateWebHostBuilder().UseEnvironment("IntegrationTesting");
-            
+            }
+
+            protected override IWebHostBuilder CreateWebHostBuilder()
+            {
+                return base.CreateWebHostBuilder().UseEnvironment("IntegrationTesting");
+            }
+
             protected override void ConfigureWebHost(IWebHostBuilder builder)
             {
                 builder.ConfigureAppConfiguration((_, configBuilder) =>
@@ -53,7 +57,7 @@ namespace AzureHelloWorldWeb.Tests
                 });
             }
         }
-        
+
         public TestApplicationFactory Factory;
         public IConfiguration Configuration;
         public IServiceScopeFactory ScopeFactory;
@@ -87,7 +91,7 @@ namespace AzureHelloWorldWeb.Tests
                 await action(service);
             }
         }
-        
+
         public void Dispose()
         {
             if (Mode == PersistenceMode.Database)
@@ -96,7 +100,7 @@ namespace AzureHelloWorldWeb.Tests
                 var context = scope.ServiceProvider.GetRequiredService<ValuesContext>();
                 context.Database.EnsureDeleted();
             }
-            
+
             Factory?.Dispose();
         }
     }

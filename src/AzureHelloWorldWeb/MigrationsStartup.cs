@@ -9,7 +9,7 @@ namespace AzureHelloWorldWeb
         {
             Configuration = configuration;
         }
-        
+
         public static IConfiguration Configuration { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)

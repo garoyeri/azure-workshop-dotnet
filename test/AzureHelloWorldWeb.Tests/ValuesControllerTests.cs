@@ -15,7 +15,7 @@ namespace AzureHelloWorldWeb.Tests
         {
             _fixture = fixture;
         }
-        
+
         [Fact]
         public async Task TestGet()
         {

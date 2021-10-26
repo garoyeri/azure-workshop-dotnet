@@ -21,7 +21,8 @@ namespace AzureHelloWorldWeb.Features.Values
         /// <param name="useBackwardQuery"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<List<string>> List(int maxItems = 100, bool? useBackwardQuery = null, CancellationToken cancellationToken = default);
+        Task<List<string>> List(int maxItems = 100, bool? useBackwardQuery = null,
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Append a new value as the next ID

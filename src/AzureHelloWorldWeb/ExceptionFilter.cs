@@ -14,7 +14,7 @@ namespace AzureHelloWorldWeb
         {
             _logger = logger;
         }
-        
+
         public Task OnExceptionAsync(ExceptionContext context)
         {
             context.ExceptionHandled = true;
@@ -28,7 +28,7 @@ namespace AzureHelloWorldWeb
             context.Result = problem.Result;
 
             _logger.LogError(context.Exception, "Error Encountered");
-            
+
             return Task.CompletedTask;
         }
     }

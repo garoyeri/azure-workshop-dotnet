@@ -13,15 +13,12 @@ namespace AzureHelloWorldWeb.Tests
         {
             _fixture = fixture;
         }
-        
+
         [Fact]
         public async Task CanCreateValues()
         {
-            await _fixture.UsingValuesServiceAsync(async service =>
-            {
-                await service.Append("CanCreateValues()");
-            });
-            
+            await _fixture.UsingValuesServiceAsync(async service => { await service.Append("CanCreateValues()"); });
+
             await _fixture.UsingValuesServiceAsync(async service =>
             {
                 var values = await service.List();
