@@ -9,6 +9,7 @@ namespace AzureHelloWorldWeb.Tests
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
 
     public class IntegrationFixture : IDisposable
     {
@@ -30,16 +31,25 @@ namespace AzureHelloWorldWeb.Tests
         
         public class TestApplicationFactory : WebApplicationFactory<Startup>
         {
+            protected override IHostBuilder CreateHostBuilder() =>
+                base.CreateHostBuilder()
+                    .ConfigureHostConfiguration(
+                        config => config.AddEnvironmentVariables("ASPNETCORE"));
+            
+            protected override IWebHostBuilder CreateWebHostBuilder() =>
+                base.CreateWebHostBuilder().UseEnvironment("IntegrationTesting");
+            
             protected override void ConfigureWebHost(IWebHostBuilder builder)
             {
                 builder.ConfigureAppConfiguration((_, configBuilder) =>
                 {
-                    configBuilder.AddInMemoryCollection(new Dictionary<string, string>
-                    {
-                        { "ASPNETCORE_ENVIRONMENT", "Development" },
-                        { "Database:PersistenceMode", "Database" },
-                        { "ConnectionStrings:Database", "Data Source=127.0.0.1;Initial Catalog=HelloWorldTests;Integrated Security=False;User Id=sa;Password=SqlServerPassw0rd;MultipleActiveResultSets=True"}
-                    });
+                    configBuilder
+                        .SetBasePath(AppContext.BaseDirectory)
+                        .AddJsonFile("appsettings.IntegrationTesting.json", false)
+                        .AddInMemoryCollection(new Dictionary<string, string>
+                        {
+                            { "ASPNETCORE_ENVIRONMENT", "IntegrationTesting" }
+                        });
                 });
             }
         }
