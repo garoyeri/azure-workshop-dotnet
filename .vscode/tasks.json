@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/src/AzureHelloWorldWeb/AzureHelloWorldWeb.csproj",
+        "${workspaceFolder}",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
