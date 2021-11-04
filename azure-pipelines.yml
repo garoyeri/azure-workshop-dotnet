@@ -10,3 +10,5 @@ steps:
     command: 'build'
   displayName: Compile
   
+- pwsh: |
+    docker run -it mcr.microsoft.com/mssql/server:2019-latest /opt/mssql/bin/sqlservr -v
