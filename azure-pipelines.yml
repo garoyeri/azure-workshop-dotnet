@@ -11,4 +11,9 @@ steps:
   displayName: Compile
   
 - pwsh: |
-    docker run mcr.microsoft.com/mssql/server:2019-latest /opt/mssql/bin/sqlservr -v
+    docker compose up -d
+  workingDirectory: test/hello-sqlserver
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
