@@ -25,5 +25,11 @@ namespace AzureHelloWorldWeb.Tests
                 values.ShouldContain(v => v == "CanCreateValues()");
             });
         }
+
+        [Fact]
+        public void DoesNothing()
+        {
+            
+        }
     }
 }
