@@ -26,6 +26,7 @@ steps:
   inputs:
     command: 'build'
     Dockerfile: 'Container.Dockerfile'
+    arguments: '-t $(Build.BuildId)'
 
 - pwsh: |
     new-item publish/container -itemtype directory -force
