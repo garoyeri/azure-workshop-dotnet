@@ -21,3 +21,25 @@ steps:
     command: 'test'
     arguments: '-c Release --no-build'
   displayName: Run Unit Tests
+
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: 'Container.Dockerfile'
+
+- pwsh: |
+    new-item publish/container -itemtype directory -force
+    docker save -o publish/container/azure-workshop.tar $(Build.BuildId)
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'publish/container'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/azure-workshop.zip'
+    replaceExistingArchive: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'azure-workshop'
+    publishLocation: 'pipeline'
