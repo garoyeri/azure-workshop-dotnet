@@ -10,7 +10,7 @@ steps:
     command: 'build'
     arguments: '-c Release'
   displayName: Compile
-  
+
 - pwsh: |
     docker compose up -d
   workingDirectory: test/hello-sqlserver
