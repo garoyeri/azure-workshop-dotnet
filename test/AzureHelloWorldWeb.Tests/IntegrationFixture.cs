@@ -1,15 +1,12 @@
 namespace AzureHelloWorldWeb.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Features.Values;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
 
     public class IntegrationFixture : IDisposable
     {
@@ -29,33 +26,8 @@ namespace AzureHelloWorldWeb.Tests
             }
         }
 
-        public class TestApplicationFactory : WebApplicationFactory<Startup>
+        public class TestApplicationFactory : WebApplicationFactory<LocalEntryPoint>
         {
-            protected override IHostBuilder CreateHostBuilder()
-            {
-                return base.CreateHostBuilder()
-                    .ConfigureHostConfiguration(
-                        config => config.AddEnvironmentVariables("ASPNETCORE"));
-            }
-
-            protected override IWebHostBuilder CreateWebHostBuilder()
-            {
-                return base.CreateWebHostBuilder().UseEnvironment("IntegrationTesting");
-            }
-
-            protected override void ConfigureWebHost(IWebHostBuilder builder)
-            {
-                builder.ConfigureAppConfiguration((_, configBuilder) =>
-                {
-                    configBuilder
-                        .SetBasePath(AppContext.BaseDirectory)
-                        .AddJsonFile("appsettings.IntegrationTesting.json", false)
-                        .AddInMemoryCollection(new Dictionary<string, string>
-                        {
-                            { "ASPNETCORE_ENVIRONMENT", "IntegrationTesting" }
-                        });
-                });
-            }
         }
 
         public TestApplicationFactory Factory;
