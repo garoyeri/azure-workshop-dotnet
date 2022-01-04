@@ -3,6 +3,7 @@ namespace AzureHelloWorldWeb.Tests
     using System;
     using System.Threading.Tasks;
     using Features.Values;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
