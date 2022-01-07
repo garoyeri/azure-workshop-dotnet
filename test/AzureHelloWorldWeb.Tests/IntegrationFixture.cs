@@ -1,6 +1,7 @@
 namespace AzureHelloWorldWeb.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Features.Values;
     using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,16 @@ namespace AzureHelloWorldWeb.Tests
 
         public class TestApplicationFactory : WebApplicationFactory<LocalEntryPoint>
         {
+            protected override void ConfigureWebHost(IWebHostBuilder builder)
+            {
+                builder.ConfigureAppConfiguration((_, configBuilder) =>
+                {
+                    configBuilder.AddInMemoryCollection(new KeyValuePair<string, string>[]
+                    {
+                        new("ConnectionStrings:Database", "Data Source=127.0.0.1;Initial Catalog=HelloWorldTest;Integrated Security=False;User Id=sa;Password=SqlServerPassw0rd;MultipleActiveResultSets=True")
+                    });
+                });
+            }
         }
 
         public TestApplicationFactory Factory;
